@@ -1,32 +1,13 @@
 # Complie set
 
-CC = gcc
+CC = g++
 AR = ar
-CFLAGS = -std=c99 -Wall -g
-
+CFLAGS = -Wall -Wextra -std=c++11
 # Include Dir
 
-INCLUDES = -I./DSPLIB/Include -I./DSPLIB/Include/dsp -I./DSPLIB/PrivateInclude \
+INCLUDES = -Iinclude -I./DSPLIB/Include -I./DSPLIB/Include/dsp -I./DSPLIB/PrivateInclude \
 -I./Drivers/CMSIS/Device/ST/STM32H7xx/Include -I./Drivers/CMSIS/Include
 
-# Source Dir
-
-# SRC_DIRS := ./DSPLIB/Source/BasicMathFunctions \
-# ./DSPLIB/Source/MatrixFunctions \
-# ./DSPLIB/Source/FastMathFunctions \
-# ./DSPLIB/Source/FilteringFunctions \
-#  $(CMSIS_DSP)/Source/CommonTables \
-#  $(CMSIS_DSP)/Source/InterpolationFunctions \
-#  $(CMSIS_DSP)/Source/BayesFunctions 
-#  $(CMSIS_DSP)/Source/ComplexMathFunctions \
-#  $(CMSIS_DSP)/Source/QuaternionMathFunctions \
-#  $(CMSIS_DSP)/Source/ControllerFunctions \
-#  $(CMSIS_DSP)/Source/SVMFunctions \
-#  $(CMSIS_DSP)/Source/DistanceFunctions \
-#  $(CMSIS_DSP)/Source/StatisticsFunctions 
-#  $(CMSIS_DSP)/Source/SupportFunctions 
-#  $(CMSIS_DSP)/Source/TransformFunctions \
-#  $(CMSIS_DSP)/Source/WindowFunctions
 
 # Static Library
 
@@ -61,13 +42,13 @@ main: $(LIBRARY) main.o
 	$(CC) $(CFLAGS) -o $@ $^ -L. $<
 
 
-# $(LIBRARY): $(OBJS)
-# 	@echo "creating static library..."
-#	$(AR) rcs $@ $(OBJS)
-
 # 生成规则 (.c --> .o)
 
 %.o: %.c
+	@echo "compiling $<..."
+	$(CC) $(CFLAGS) $(INCLUDES) -c $< -o $@
+
+%.o: %.cpp
 	@echo "compiling $<..."
 	$(CC) $(CFLAGS) $(INCLUDES) -c $< -o $@
 
