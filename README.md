@@ -6,15 +6,15 @@
 
 ### 文件构成
 
-| 文件名        | 描述                    |
-| ------------- | ----------------------- |
-| CMSIS_5       |                         |
-| CMSIS-DSP     | DSP库源文件             |
-| Drivers       |                         |
-| DSPLIB        | DSP库中必要的头文件     |
-| dsppp         | DSP++扩展，用于简化代码 |
-| libCMSISDSP.a | 可用的静态链接库        |
-| main.c        | 测试文件                |
+| 文件名                                             | 描述                                   |
+| -------------------------------------------------- | -------------------------------------- |
+| [CMSIS_5](https://github.com/ARM-software/CMSIS_5) | 官方CMSIS软件包                        |
+| CMSIS-DSP                                          | DSP库源文件                            |
+| DSPLIB                                             | DSP库源文件中，必要的头文件            |
+| dsppp                                              | DSP库源文件中的DSP++扩展，用于简化代码 |
+| Drivers                                            |                                        |
+| libCMSISDSP.a                                      | 可用的静态链接库                       |
+| main.c                                             | 测试文件                               |
 
 ### 生成静态链接库
 
@@ -51,7 +51,18 @@
 
 `make clean`：删除产生的 .o .exe 文件
 
-### DSP++
+### DSP++（未完成）
 
-TODO
+**当前情况**
+
+在 makefile 中，加入了 dsppp 对应的头文件路径：
+
+```makefile
+INCLUDES = ...... \
+...... \
+-I./dsppp/Include -I./dsppp/RTE/_Release_IPSS_M0P \
+-I./CMSIS_5/Device/ARM/ARMCM0plus/Include
+```
+
+给 main.cpp 中加入 [.\dsppp\Examples](dsppp\Examples) 中的头文件，目前有大量报错
 
