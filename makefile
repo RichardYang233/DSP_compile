@@ -3,11 +3,13 @@
 CC = g++
 AR = ar
 CFLAGS = -Wall -Wextra -std=c++11
+
 # Include Dir
 
-INCLUDES = -Iinclude -I./DSPLIB/Include -I./DSPLIB/Include/dsp -I./DSPLIB/PrivateInclude \
--I./Drivers/CMSIS/Device/ST/STM32H7xx/Include -I./Drivers/CMSIS/Include
-
+INCLUDES = -I./DSPLIB/Include -I./DSPLIB/Include/dsp -I./DSPLIB/PrivateInclude \
+-I./Drivers/CMSIS/Device/ST/STM32H7xx/Include -I./Drivers/CMSIS/Include \
+-I./dsppp/Include -I./dsppp/RTE/_Release_IPSS_M0P \
+-I./CMSIS_5/Device/ARM/ARMCM0plus/Include
 
 # Static Library
 
@@ -22,15 +24,7 @@ SRCS = $(foreach dir, $(SRC_DIRS), $(wildcard $(dir)/*.c))
 OBJS = $(patsubst %.c, %.o, $(SRCS))
 OBJS_\PATH = $(subst /,\, $(OBJS))
 
-# ---------------- #
-# ---------------- #
-
-# .PHONY: lib
-
-# lib: $(LIBRARY)
-
-# ---------------- #
-# ---------------- #
+# ----------------- #
 
 .PHONY: run
 
@@ -42,7 +36,7 @@ main: $(LIBRARY) main.o
 	$(CC) $(CFLAGS) -o $@ $^ -L. $<
 
 
-# 生成规则 (.c --> .o)
+# .c --> .o
 
 %.o: %.c
 	@echo "compiling $<..."
@@ -52,8 +46,7 @@ main: $(LIBRARY) main.o
 	@echo "compiling $<..."
 	$(CC) $(CFLAGS) $(INCLUDES) -c $< -o $@
 
-# ---------------- #
-# ---------------- #
+# ----------------- #
 
 .PHONY: clean
 
